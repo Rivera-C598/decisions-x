@@ -1,0 +1,9 @@
+BANK SYSTEM RECORD
+Borrower: Joan Lee
+Total Due: ₱120,400
+Breakdown:
+- Loan: 50,000
+- Interest: 9%
+- Late Penalties: ₱20,000
+- Administrative Fees: ₱30,000
+- System Maintenance Fee: ₱10,400
